@@ -95,5 +95,7 @@
     <string name="example_wayfinding_description">Demonstrates usage of IndoorAtlas Wayfinding</string>
     <string name="example_wayfinding_title">12. Wayfinding</string>
 
+    <string name="example_ar_wikitude_title">14. AR.Wikitude</string>
+    <string name="example_ar_wikitude_description">Shows AR object at the specified POI location</string>
 
 </resources>
