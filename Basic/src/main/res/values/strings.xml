@@ -98,4 +98,8 @@
     <string name="example_ar_wikitude_title">14. AR.Wikitude</string>
     <string name="example_ar_wikitude_description">Shows AR object at the specified POI location</string>
 
+    <string name="plane_finding">Searching for surfaces&#8230;</string>
+    <string name="example_arcore_description">Show AR Object adthe specified location</string>
+    <string name="example_arcore_title">15. ARCore Example</string>
+
 </resources>
