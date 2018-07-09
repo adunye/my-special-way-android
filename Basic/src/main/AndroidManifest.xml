@@ -59,6 +59,11 @@
             android:name="com.indooratlas.android.sdk.API_SECRET"
             android:value="@string/indooratlas_api_secret" />
 
+        <!-- This tag indicates that this application requires ARCore. This results in the
+    application only being visible in the Google Play Store on devices that support
+    ARCore. -->
+        <meta-data android:name="com.google.ar.core" android:value="required" />
+
         <activity
             android:name=".ListExamplesActivity"
             android:label="@string/app_name">
@@ -134,6 +139,10 @@
 
         <activity
             android:name=".ar.wikitude.SimpleGeoArActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+
+        <activity
+            android:name=".ar.arcore.LocationActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
         <provider

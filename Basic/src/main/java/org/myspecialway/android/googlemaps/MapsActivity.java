@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -21,7 +22,7 @@ import org.myspecialway.android.SdkExample;
 import org.myspecialway.android.utils.ExampleUtils;
 
 @SdkExample(description = R.string.example_googlemaps_basic_description)
-public class MapsActivity extends FragmentActivity implements IALocationListener {
+public class MapsActivity extends FragmentActivity implements IALocationListener, OnMapReadyCallback {
 
     private static final float HUE_IABLUE = 200.0f;
 
@@ -54,18 +55,10 @@ public class MapsActivity extends FragmentActivity implements IALocationListener
     protected void onResume() {
         super.onResume();
         if (mMap == null) {
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
+            ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMapAsync(this);
         }
         mIALocationManager.requestLocationUpdates(IALocationRequest.create(), this);
 
-        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
-            @Override
-            public void onMapLongClick(LatLng latLng) {
-                ExampleUtils.shareText(MapsActivity.this, mIALocationManager.getExtraInfo().traceId,
-                        "traceId");
-            }
-        });
     }
 
     @Override
@@ -97,5 +90,18 @@ public class MapsActivity extends FragmentActivity implements IALocationListener
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
         // N/A
+    }
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() {
+            @Override
+            public void onMapLongClick(LatLng latLng) {
+                ExampleUtils.shareText(MapsActivity.this, mIALocationManager.getExtraInfo().traceId,
+                        "traceId");
+            }
+        });
+
     }
 }

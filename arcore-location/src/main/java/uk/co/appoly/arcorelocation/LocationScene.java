@@ -65,6 +65,7 @@ public class LocationScene {
         startCalculationTask();
 
         deviceLocation = new DeviceLocation(this);
+        deviceLocation.setMinimumAccuracy(1);
         deviceOrientation = new DeviceOrientation(this);
         deviceOrientation.resume();
     }
@@ -327,6 +328,7 @@ public class LocationScene {
      * Resume sensor services. Important!
      */
     public void resume() {
+        deviceLocation.resume();
         deviceOrientation.resume();
     }
 
@@ -334,6 +336,7 @@ public class LocationScene {
      * Pause sensor services. Important!
      */
     public void pause() {
+        deviceLocation.pause();
         deviceOrientation.pause();
     }
 

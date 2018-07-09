@@ -130,12 +130,12 @@ public class LocationActivity extends AppCompatActivity {
                                 // If our locationScene object hasn't been setup yet, this is a good time to do it
                                 // We know that here, the AR components have been initiated.
                                 locationScene = new LocationScene(this, this, arSceneView);
-
+                                locationScene.setMinimalRefreshing(true );
                                 // Now lets create our location markers.
                                 // First, a layout
                                 LocationMarker layoutLocationMarker = new LocationMarker(
-                                        -4.849509,
-                                        42.814603,
+                                        34.91078563034535,
+                                        31.986419691740092,
                                         getExampleView()
                                 );
 
@@ -146,7 +146,11 @@ public class LocationActivity extends AppCompatActivity {
                                     public void render(LocationNode node) {
                                         View eView = exampleLayoutRenderable.getView();
                                         TextView distanceTextView = eView.findViewById(R.id.textView2);
-                                        distanceTextView.setText(node.getDistance() + "M");
+                                        distanceTextView.setText(node.getDistance() + "M, " + node.getDistanceInAR());
+                                        TextView positionTextview = eView.findViewById(R.id.local_position);
+                                        positionTextview.setText("local pos: " + node.getLocalPosition() + ", rot: " + node.getLocalRotation());
+                                        TextView worldTextview = eView.findViewById(R.id.world_position);
+                                        positionTextview.setText("world pos: " + node.getWorldPosition() + ", rot: " + node.getWorldRotation());
                                     }
                                 });
                                 // Adding the marker
@@ -155,8 +159,8 @@ public class LocationActivity extends AppCompatActivity {
                                 // Adding a simple location marker of a 3D model
                                 locationScene.mLocationMarkers.add(
                                         new LocationMarker(
-                                                -0.119677,
-                                                51.478494,
+                                                34.91078563034535,
+                                                31.986419691740092,
                                                 getAndy()));
                             }
 

@@ -60,8 +60,8 @@ public class LocationScene {
 
         startCalculationTask();
 
-        deviceLocation = new DeviceLocation();
-        deviceOrientation = new DeviceOrientation();
+        deviceLocation = new DeviceLocation(this);
+        deviceOrientation = new DeviceOrientation(this);
 
     }
 

@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.Circle;
 import com.google.android.gms.maps.model.CircleOptions;
@@ -24,7 +25,7 @@ import java.util.Map;
 
 @SdkExample(description = R.string.example_googlemaps_indoor_description)
 public class GoogleMapsIndoorActivity extends FragmentActivity implements
-        IALocationListener, GoogleMap.OnIndoorStateChangeListener {
+        IALocationListener, GoogleMap.OnIndoorStateChangeListener, OnMapReadyCallback {
 
     private GoogleMap mMap; // Might be null if Google Play services APK is not available.
     private Circle mCircle;
@@ -34,6 +35,12 @@ public class GoogleMapsIndoorActivity extends FragmentActivity implements
 
     private static final int ACTIVE_LEVEL_BLUE_DOT_COLOR = 0x601681FB;
     private static final int OTHER_LEVEL_BLUE_DOT_COLOR = 0x60808080;
+
+    @Override
+    public void onMapReady(GoogleMap googleMap) {
+        mMap = googleMap;
+        mMap.setOnIndoorStateChangeListener(this);
+    }
 
     /**
      * Matches Google Maps IndoorLevels to IndoorAtlas floor plans.
@@ -153,8 +160,8 @@ public class GoogleMapsIndoorActivity extends FragmentActivity implements
     protected void onResume() {
         super.onResume();
         if (mMap == null) {
-            mMap = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
-                    .getMap();
+            ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map))
+                    .getMapAsync(this);
             mMap.setOnIndoorStateChangeListener(this);
         }
         mIALocationManager.requestLocationUpdates(IALocationRequest.create(), this);

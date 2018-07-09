@@ -9,6 +9,12 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.indooratlas.android.sdk.IALocation;
+import com.indooratlas.android.sdk.IALocationListener;
+import com.indooratlas.android.sdk.IALocationManager;
+import com.indooratlas.android.sdk.IALocationRequest;
+import com.indooratlas.android.sdk.resources.IALocationListenerSupport;
+
 import java.util.ArrayList;
 
 import uk.co.appoly.arcorelocation.LocationScene;
@@ -18,7 +24,7 @@ import uk.co.appoly.arcorelocation.utils.KalmanLatLong;
  * Created by John on 02/03/2018.
  */
 
-public class DeviceLocation implements LocationListener {
+public class DeviceLocation /*implements LocationListener*/ {
 
     private static final String TAG = DeviceLocation.class.getSimpleName();
     private static final int TWO_MINUTES = 1000 * 60 * 2;
@@ -33,9 +39,30 @@ public class DeviceLocation implements LocationListener {
     private KalmanLatLong kalmanFilter;
     private int gpsCount = 0;
     private long runStartTimeInMillis;
-    private LocationManager locationManager;
+//    private LocationManager locationManager;
     private LocationScene locationScene;
     private int minimumAccuracy = 25;
+
+    private IALocationManager mIALocationManager;
+
+    /**
+     * Listener that handles location change events.
+     */
+    private IALocationListener mListener = new IALocationListenerSupport() {
+
+        /**
+         * Location changed, move marker and camera position.
+         */
+        @Override
+        public void onLocationChanged(IALocation location) {
+
+            Log.d(TAG, "new IAlocation received with coordinates: " + location);
+            gpsCount++;
+
+            filterAndAddLocation(location.toLocation());
+        }
+    };
+
 
     public DeviceLocation(LocationScene locationScene) {
         this.locationScene = locationScene;
@@ -61,32 +88,32 @@ public class DeviceLocation implements LocationListener {
     }
 
 
-    @Override
-    public void onLocationChanged(final Location newLocation) {
-        Log.d(TAG, "(" + newLocation.getLatitude() + "," + newLocation.getLongitude() + ")");
-
-        gpsCount++;
-
-        filterAndAddLocation(newLocation);
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-        startUpdatingLocation();
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-        try {
-            locationManager.requestLocationUpdates(provider, 0, 0, this);
-        } catch (SecurityException e) {
-
-        }
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-    }
+//    @Override
+//    public void onLocationChanged(final Location newLocation) {
+//        Log.d(TAG, "(" + newLocation.getLatitude() + "," + newLocation.getLongitude() + ")");
+//
+//        gpsCount++;
+//
+//        filterAndAddLocation(newLocation);
+//    }
+//
+//    @Override
+//    public void onProviderDisabled(String provider) {
+//        startUpdatingLocation();
+//    }
+//
+//    @Override
+//    public void onProviderEnabled(String provider) {
+//        try {
+//            locationManager.requestLocationUpdates(provider, 0, 0, this);
+//        } catch (SecurityException e) {
+//
+//        }
+//    }
+//
+//    @Override
+//    public void onStatusChanged(String provider, int status, Bundle extras) {
+//    }
 
 
     public void startUpdatingLocation() {
@@ -102,8 +129,8 @@ public class DeviceLocation implements LocationListener {
             inaccurateLocationList.clear();
             kalmanNGLocationList.clear();
 
-            LocationManager locationManager = (LocationManager) locationScene.mContext.getSystemService(locationScene.mContext.LOCATION_SERVICE);
-
+//            LocationManager locationManager = (LocationManager) locationScene.mContext.getSystemService(locationScene.mContext.LOCATION_SERVICE);
+            mIALocationManager = IALocationManager.create(locationScene.mContext);
             //Exception thrown when GPS or Network provider were not available on the user's device.
             try {
                 Criteria criteria = new Criteria();
@@ -125,7 +152,8 @@ public class DeviceLocation implements LocationListener {
 
                 //locationManager.addGpsStatusListener(this);
 
-                locationManager.requestLocationUpdates(gpsFreqInMillis, gpsFreqInDistance, criteria, this, null);
+//                locationManager.requestLocationUpdates(gpsFreqInMillis, gpsFreqInDistance, criteria, this, null);
+                mIALocationManager.requestLocationUpdates(IALocationRequest.create(), mListener);
 
                 /* Battery Consumption Measurement */
                 gpsCount = 0;
@@ -252,4 +280,13 @@ public class DeviceLocation implements LocationListener {
     }
 
 
+    public void resume() {
+        mIALocationManager.requestLocationUpdates(IALocationRequest.create(), mListener);
+    }
+
+    public void pause() {
+        if (mIALocationManager != null) {
+            mIALocationManager.removeLocationUpdates(mListener);
+        }
+    }
 }
