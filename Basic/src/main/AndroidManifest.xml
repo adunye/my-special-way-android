@@ -145,6 +145,12 @@
             android:name=".ar.arcore.LocationActivity"
             android:configChanges="orientation|keyboardHidden|screenSize" />
 
+        <activity
+            android:name=".waywithcompas.WayWithCompassOverlayActivity"
+            android:label="@string/example_wayfinding_with_compass_title"
+            android:screenOrientation="portrait">
+        </activity>
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="org.myspecialway.android.fileprovider"

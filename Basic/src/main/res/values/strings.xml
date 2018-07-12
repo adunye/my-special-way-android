@@ -95,6 +95,11 @@
     <string name="example_wayfinding_description">Demonstrates usage of IndoorAtlas Wayfinding</string>
     <string name="example_wayfinding_title">12. Wayfinding</string>
 
+    <string name="example_wayfinding_with_compass_description">Demonstrates usage of compass with IndoorAtlas Wayfinding</string>
+    <string name="example_wayfinding_with_compass_title">16. Wayfinding</string>
+    <string name="compass_dial">Compass Dial</string>
+    <string name="compass_hands">Compass Hands</string>
+
     <string name="example_ar_wikitude_title">14. AR.Wikitude</string>
     <string name="example_ar_wikitude_description">Shows AR object at the specified POI location</string>
 
