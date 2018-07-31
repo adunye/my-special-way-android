@@ -14,7 +14,7 @@ public class LocationUtils {
      * @param lon2
      * @return
      */
-    public static double bearing(double lat1, double lon1, double lat2, double lon2){
+    public static double  bearing(double lat1, double lon1, double lat2, double lon2){
         double longitude1 = lon1;
         double longitude2 = lon2;
         double latitude1 = Math.toRadians(lat1);

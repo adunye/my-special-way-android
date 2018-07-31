@@ -252,9 +252,15 @@ public class WayfindingOverlayActivity extends FragmentActivity implements Locat
         mIALocationManager = IALocationManager.create(this);
         mResourceManager = IAResourceManager.create(this);
 
+        String[] neededPermissions = {
+                Manifest.permission.CHANGE_WIFI_STATE,
+                Manifest.permission.ACCESS_WIFI_STATE,
+                Manifest.permission.ACCESS_COARSE_LOCATION,
+                Manifest.permission.ACCESS_FINE_LOCATION
+        };
         // Request GPS locations
         if (ActivityCompat.checkSelfPermission(this, ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_ACCESS_FINE_LOCATION);
+            ActivityCompat.requestPermissions(this, neededPermissions, MY_PERMISSION_ACCESS_FINE_LOCATION);
             return;
         }
 

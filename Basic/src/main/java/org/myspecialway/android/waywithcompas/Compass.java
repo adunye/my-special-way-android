@@ -50,6 +50,10 @@ public class Compass implements SensorEventListener {
         azimuthFix = fix;
     }
 
+    public float getAzimuth(){
+        return azimuth;
+    }
+
     public void resetAzimuthFix() {
         setAzimuthFix(0);
     }

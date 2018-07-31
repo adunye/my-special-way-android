@@ -1,7 +1,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/main">
 
     <fragment
         android:layout_width="match_parent"
@@ -10,8 +11,8 @@
         tools:context=".MapsActivity"
         android:name="com.google.android.gms.maps.SupportMapFragment"/>
 
-
     <FrameLayout
+        android:id="@+id/compass"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -36,19 +37,48 @@
 
     </FrameLayout>
 
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/camera"
+        android:layout_width="wrap_content"
+        android:text="Start Camera"
+        android:layout_height="wrap_content"
+        android:layout_toEndOf="@id/compass"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="10dp"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
-            android:id="@+id/azimuth"
+            android:id="@+id/ia_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="@android:color/white"
             android:textSize="18sp"
-            android:hint="azimuth" />
+            android:textColor="@color/panorama_text_color"
+            android:hint="IALocaton" />
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:textSize="18sp"
+            android:textColor="@color/panorama_text_color"
+            android:hint="Location" />
+
+        <TextView
+            android:id="@+id/heading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:textSize="18sp"
+            android:textColor="@color/panorama_text_color"
+            android:hint="IALocaton" />
 
         <TextView
             android:id="@+id/bearing"
@@ -56,9 +86,19 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="@android:color/white"
             android:textSize="18sp"
-            android:hint="bearing" />
+            android:textColor="@color/panorama_text_color"
+            android:hint="IALocaton" />
+
+        <TextView
+            android:id="@+id/routeBearing"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:textSize="18sp"
+            android:textColor="@color/panorama_text_color"
+            android:hint="IALocaton" />
 
         <TextView
             android:id="@+id/route"
@@ -66,9 +106,19 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
-            android:background="@android:color/white"
             android:textSize="18sp"
+            android:textColor="@color/panorama_text_color"
             android:hint="route" />
+
+        <TextView
+            android:id="@+id/traceId"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:textSize="18sp"
+            android:textColor="@color/panorama_text_color"
+            android:hint="traceId" />
 
     </LinearLayout>
 
